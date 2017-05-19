@@ -1,0 +1,5 @@
+.*
+!/.gitignore
+# no need to include test folders, as tests are created on the fly.
+*_test/
+__pycache__/
