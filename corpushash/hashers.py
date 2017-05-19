@@ -28,7 +28,8 @@ class CorpusHash:
     salt_length argument will be ignored.
     """
     def __init__(self, corpus, corpus_path, hash_function='sha256', 
-                 salt_length=32, one_salt=False, encoding='utf-8'):
+                 salt_length=32, one_salt=False, encoding='utf-8', 
+                 indent_json=None):
         """
         takes as corpus a dictionary of nested lists of a variable depth, and 
         hashes its tokens with a random salt. the corpus_path provided is 
@@ -42,10 +43,15 @@ class CorpusHash:
         :param salt_length: int: determines salt length in bytes.
         :param one_salt: bool: determines if tokens will be hashed 
         with the same salt or one for each token. if True, os.urandom generates 
-        a salt to be used. (in this case, choose a greater salt length. if 
-        False, os.urandom will generate a salt for each token.
+        a salt to be used. if False, os.urandom will generate a salt for each 
+        token.
         :param encoding: str: defines in which encoding the outputted files are 
         to be stored in.
+        :param indent_json: int: if None, won't indent. if positive integer, 
+        will indent using this number of spaces. zero will add \\n, but no 
+        indentation. if you don't have nested lists, the default argument (None)
+        is probably the best option, for with large corpora indentation and \\n 
+        can take up a lot of space.
         """
         self.corpus = corpus
         if not os.path.isdir(corpus_path):
@@ -67,6 +73,7 @@ class CorpusHash:
             self.hash_function = hash_function
         self.salt_length = salt_length
         self.one_salt = self.choose_salt(one_salt)
+        self.indent_json = indent_json
         self.corpus_size = self.hash_corpus()
 
     def _make_public_dir(self):
@@ -192,17 +199,18 @@ class CorpusHash:
             self.encode_dictionary[token] = hashed_token
         return hashed_token
 
-    def _export_work(self, file_to_dump, file_path):
+    def _export_work(self, var_to_dump, file_path):
         """
         takes a file to be written (Python object) and a file path, and dumps 
         the file to the file path (which includes name and extension).
-        :param file_to_dump: dictionary or nested list of str.
-        :param file_path: file path where file_to_dump is to be written. must 
+        :param var_to_dump: dictionary or nested list of str.
+        :param file_path: file path where var_to_dump is to be written. must 
         contain filename and extension.
         :return: None; but files (dictionaries and documents) are created.
         """
         with open(file_path, mode='wt', encoding=self.encoding) as output:
-            json.dump(file_to_dump, output, indent=4, ensure_ascii=False)
+            json.dump(var_to_dump, output, indent=self.indent_json, 
+                      ensure_ascii=False)
 
     def read_hashed_corpus(self):
         """
