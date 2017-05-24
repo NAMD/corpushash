@@ -18,6 +18,7 @@ setup(name='corpushash',
       url='https://github.com/NAMD/corpushash',
       packages=find_packages(exclude=['tests', 'test_corpus']),
       # install_requires=[''],
+      keywords = ['python 3', 'nlp', 'hash', 'hashing'], 
       classifiers=[
           'Development Status :: 3 - Alpha',
           # Indicate who your project is intended for
