@@ -25,24 +25,6 @@ plaintext token, NLP can occur in the same way as with any plaintext corpus.
 uses the dictionary to recover the plaintext tokens and thus the results' 
 meaning.
 
-notes
-=====
-
-- probability of collision is extremely low (check the `preprint <TBD>`_), but 
-  still we check for them, so they are not an issue.
-
-- hashing the tokens is not the same as encrypting them. as the same token 
-  always maps to the same hash, the resulting hashed corpus is subject to 
-  frequency analysis. even if a pre-processed text is almost uncomprehensible to 
-  a reader (specially if stopwords are removed), there probably is still a 
-  degree of trust in the analyst. she is usually someone who has no incentive 
-  to attempt a decipherment of the text or someone who has a lesser (but by no 
-  means inexisting) security clearance. this vulnerability will be investigated 
-  in the future.
-
-- memory complexity is estimated to be at most double the size of the biggest 
-  document in the corpus.
-
 
 the library
 ===========
@@ -62,12 +44,12 @@ The library requires as input:
 
 The output includes:
 
-- a .json file for every document in the ``corpus``, named sequentially as 
+- a ``.json`` file for every document in the ``corpus``, named sequentially as 
   positive integers, e.g., the first document being ``0.json``, stored in 
   ``corpus_path/public/$(timestamp-of-hash)/``.
 
-- two .json dictionaries stored in ``corpus_path/private``. they are
-  used to decode the .json files or the NLP results.
+- two ``.json`` dictionaries stored in ``corpus_path/private``. they are
+  used to decode the ``.json`` files or the NLP results.
 
 install
 =======
@@ -129,3 +111,31 @@ different .json documents, as if they were different documents:
 
 so be careful when constructing your nested lists! check the tutorial at 
 ``notebooks/tutorial.ipynb``.
+
+notes
+=====
+
+- probability of collision is extremely low (check the `preprint <TBD>`_), but 
+  still we check for them, so they are not an issue.
+
+- hashing the tokens is not the same as encrypting them. as the same token 
+  always maps to the same hash, the resulting hashed corpus is subject to 
+  frequency analysis. even if a pre-processed text is almost uncomprehensible to 
+  a reader (specially if stopwords are removed), there probably is still a 
+  degree of trust in the analyst. she is usually someone who has no incentive 
+  to attempt a decipherment of the text or someone who has a lesser (but by no 
+  means inexisting) security clearance. this vulnerability will be investigated 
+  in the future.
+
+- memory complexity is estimated to be at most double the size of the biggest 
+  document in the corpus.
+
+credits
+=======
+
+@odanoburu & @fccoelho
+
+license
+=======
+
+LGPL 3, check the ``license.md`` file for full content.
