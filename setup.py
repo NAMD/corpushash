@@ -24,9 +24,8 @@ setup(name='corpushash',
           # Indicate who your project is intended for
           'Intended Audience :: Developers',
           'Topic :: Software Development :: Build Tools',
-
           # Pick your license as you wish (should match "license" above)
-          'License :: OSI Approved :: LGPL v3 License',
+          'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.3',
           'Programming Language :: Python :: 3.4',
