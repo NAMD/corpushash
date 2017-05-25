@@ -138,4 +138,4 @@ credits
 license
 =======
 
-LGPL 3, check the ``LICENSE.md`` file for full content.
+LGPL 3, check the ``LICENSE`` file for full content.

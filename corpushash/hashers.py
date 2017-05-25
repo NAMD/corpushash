@@ -22,11 +22,12 @@ class CorpusHash:
     its tokens. creates a /public and a /private folder in a specified path; in 
     the former the hashed documents are stored in plaintext as a .json, and in 
     the latter the encoding and decoding dictionaries are kept as a pickle.
-       you can hash documents from the same corpus at different times using the 
+    you can hash documents from the same corpus at different times using the 
     same dictionaries, as long as the dictionaries are in the specified 
     path/private. if you are doing this and setting one_salt to True, 
     salt_length argument will be ignored.
     """
+    
     def __init__(self, corpus, corpus_path, hash_function='sha256', 
                  salt_length=32, one_salt=False, encoding='utf-8', 
                  indent_json=None):
@@ -34,25 +35,27 @@ class CorpusHash:
         takes as corpus a dictionary of nested lists of a variable depth, and 
         hashes its tokens with a random salt. the corpus_path provided is 
         created if not existent. the dictionary and hashed corpus paths are 
-        built from the provided corpus_path
-        :param corpus: list: nested list, whose elements are themselves nested 
+        built from the provided corpus_path.
+        
+        :param corpus: (list) nested list, whose elements are themselves nested 
         lists of tokens to be encoded (hashed).
-        :param corpus_path: str: defines where outputted files are to be stored.
-        :param hash_function: str: defines which hash function to use in the 
+        :param corpus_path: (str) defines where outputted files are to be stored.
+        :param hash_function: (str): defines which hash function to use in the 
         encoding process (the ones available are from the hashlib).
-        :param salt_length: int: determines salt length in bytes.
-        :param one_salt: bool: determines if tokens will be hashed 
+        :param salt_length: (int) determines salt length in bytes.
+        :param one_salt: (bool) determines if tokens will be hashed 
         with the same salt or one for each token. if True, os.urandom generates 
         a salt to be used. if False, os.urandom will generate a salt for each 
         token.
-        :param encoding: str: defines in which encoding the outputted files are 
+        :param encoding: (str) defines in which encoding the outputted files are 
         to be stored in.
-        :param indent_json: int: if None, won't indent. if positive integer, 
+        :param indent_json: (int) if None, won't indent. if positive integer, 
         will indent using this number of spaces. zero will add \\n, but no 
         indentation. if you don't have nested lists, the default argument (None)
         is probably the best option, for with large corpora indentation and \\n 
         can take up a lot of space.
         """
+        
         self.corpus = corpus
         if not os.path.isdir(corpus_path):
             os.mkdir(corpus_path)
@@ -81,8 +84,10 @@ class CorpusHash:
         creates folder in /public where output files will be stored. for each 
         instance of CorpusHash using the same corpus_path, a folder will be 
         created using the current time as its name.
+        
         :return: str: public_hash_path, the folder created
         """
+        
         public_dir_path = os.path.join(self.corpus_path, 'public')
         if not os.path.isdir(public_dir_path):
             os.mkdir(public_dir_path)
@@ -122,8 +127,8 @@ class CorpusHash:
         """
         if one_salt is True, searches for the one salt from a previous hashing. 
         else creates a unique salt using os.urandom.
-        :param one_salt: bool: choice of unique salt or not
-        :return: bytes or None: the unique salt or None if all salts are to be 
+        :param one_salt: (bool) choice of unique salt or not
+        :return: (bytes or None) the unique salt or None if all salts are to be 
         different
         """
         if isinstance(one_salt, bool) and one_salt:
