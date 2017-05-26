@@ -115,7 +115,7 @@ so be careful when constructing your nested lists! check the tutorial at
 notes
 =====
 
-- probability of collision is extremely low (check the `preprint <TBD>`_), but 
+- probability of collision is extremely low (check the `preprint <https://peerj.com/preprints/2994/>`_), but 
   still we check for them, so they are not an issue.
 
 - hashing the tokens is not the same as encrypting them. as the same token 
